@@ -8,21 +8,25 @@ int main(void){
     cin >> l>>r;
     ll ans =pow(10,18)*5;
     // cout << ans<<endl;
-    for(int i=l;i<=r;i++){
-        for(int j=i+1;j<=r;j++){
-            ll tmp = (i*j)%2019;
-            if(tmp<ans){
-                ans = tmp;
-                // cout << i<<"*"<<j<<"="<<ans << endl;
-                if(ans == 0){
-                    break;
+    if(2019 <= r-l+1){
+        cout << 0 << endl;
+    }else{
+        for(ll i=l;i<=r;i++){
+            for(ll j=i+1;j<=r;j++){
+                ll tmp = (i*j)%2019;
+                if(tmp<ans){
+                    ans = tmp;
+                    // cout << i<<"*"<<j<<"="<<ans << endl;
+                    if(ans == 0){
+                        break;
+                    }
                 }
             }
+            if(ans==0){
+                break;
+            }
         }
-        if(ans==0){
-            break;
-        }
+        cout << ans << endl;
     }
-    cout << ans << endl;
     
 }
