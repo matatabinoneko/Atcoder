@@ -19,5 +19,6 @@ int main(void){
         }
     }
     cout << ans << endl;
+    
     return 0;
 }
