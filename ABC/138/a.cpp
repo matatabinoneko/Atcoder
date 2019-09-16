@@ -3,8 +3,9 @@ using namespace std;
 #define ll long long
 
 int main(void){
+    int a; cin >>a;
     string s; cin >> s;
-    int num = s.length()-2;
-    cout << s[0] << num << s[s.length()-1] << endl;
+    if(3200 <= a) cout << s << endl;
+    else cout << "red" << endl;
     return 0;
 }

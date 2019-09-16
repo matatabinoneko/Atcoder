@@ -3,11 +3,10 @@ using namespace std;
 #define ll long long
 
 int main(void){
-    int n; cin >> n;
-    ll cnt=0;
-    for(int i=0;i<n;i++){
-        int l,r; cin >> l >> r;
-        cnt += r-l+1;
+    string s,t; cin >> s >> t;
+    int cnt=0;
+    for(int i=0;i<3;i++){
+        if(s[i]==t[i]) cnt++;
     }
     cout << cnt << endl;
     return 0;

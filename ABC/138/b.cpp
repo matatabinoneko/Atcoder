@@ -4,11 +4,11 @@ using namespace std;
 
 int main(void){
     int n; cin >> n;
-    ll cnt=0;
+    double sum=0;
     for(int i=0;i<n;i++){
-        int l,r; cin >> l >> r;
-        cnt += r-l+1;
+        double tmp; cin >> tmp;
+        sum += 1/tmp;
     }
-    cout << cnt << endl;
+    printf("%.7f\n",1/sum);
     return 0;
 }
