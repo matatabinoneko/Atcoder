@@ -3,33 +3,43 @@ using namespace std;
 #define ll long long
 
 int main(void){
-    int n,k; cin >> n >> k;
+    ll n,k; cin >> n >>k;
     string s; cin >> s;
-    ll i=0,ans=0;
-    bool L_exist = false;
-    while(i<s.length()-1 && 0<k){
+    ll cnt=0;
+    for(int i=0;i<n;i++){
+        if((s[i]=='L'&& 0<=i-1 && s[i-1]=='L') || (s[i]=='R' && i+1<n && s[i+1]=='R')) cnt++;
+    }
+    ll cnt_r = 0;
+    int i=0;
+    while(i<n){
         if(s[i]=='L'){
-            L_exist = true;
-            if(s[i+1]=='R'){
-                i++;
-                while(i<s.length()){
-                    if(s[i]=='L'){
-                        ans+=2;
-                        k--,i--;
-                        break;
-                    }
+            while(i<n && s[i]=='L'){
+                if(i+1<n && s[i+1]=='R'){
+                    i++;
+                    break;
+                }else{
+                    i++;
+                }
+            } 
+            while(i<n && s[i]=='R'){
+                if(i+1<n && s[i+1]=='L'){
+                    i++;
+                    cnt_r++;
+                    break;
+                }else{
                     i++;
                 }
             }
+        }else{
+            i++;
         }
-        i++;
     }
-    if(L_exist == true && 0<k && s[0]=='R') ans++,k--;
-    if(L_exist == true && 0<k && s[s.length()-1]=='R') ans++,k--;
-
-    for(int i=0;i<n;i++){
-        if((0<i && s[i]=='L' && s[i-1]=='L') || (i<s.length()-1 && s[i]=='R'&& s[i+1]=='R')) ans++;
-    }
+    ll ans = cnt + min(k,cnt_r)*2;
+    k -= cnt_r;
+    if(0<k && s[0]=='R' && s[n-1]=='R' && ans < n-1) ans+=2;
+    else if(0<k && s[0]=='R' && ans < n-1) ans++;
+    else if(0<k && s[n-1]=='R' && ans < n-1) ans++;    
     cout << ans << endl;
+    // cout << cnt << ' ' << cnt_r << endl;
     return 0;
 }

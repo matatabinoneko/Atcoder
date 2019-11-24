@@ -23,7 +23,7 @@ int main(void){
         else rest++;
     }
     ll ans1 = accumulate(color.begin(),color.end(),0);
-    ll ans2 = min(8,int(ans1+rest));
-    cout << ans1 << ' ' << ans2 << endl;
+    ll ans2 = ans1 + rest;
+    cout << max(ans1,(ll)1) << ' ' << ans2 << endl;
     return 0;
 }
