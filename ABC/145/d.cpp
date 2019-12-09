@@ -8,7 +8,7 @@ signed main(void){
     // i:x軸上での１移動の数
     for(int i=0;i<x;i++){
         if((x-i)%2==0){
-            if(i*2+((x-i)/2)==y){
+            if(i*2+((x-i)==y){
                 one = i;
                 two = (x-i)/2;
                 break;
