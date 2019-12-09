@@ -1,3 +1,3 @@
 .DS_Store
-/ABC/*.sh
-/ABC/.DS_Store
+*.sh
+a.out
