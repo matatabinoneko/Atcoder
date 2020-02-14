@@ -1,17 +1,23 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
+#define int long long 
 
-int main(void){
+signed main(void){
     int n; cin >> n;
-    vector<ll> a(n);
+    vector<int> a(n);
     for(int i=0;i<n;i++) cin >> a[i];
-    ll four=0,odd=0;
+    int odd=0,four=0;
     for(int i=0;i<n;i++){
-        if(a[i]%4==0 ) four++;
-        if(a[i]%2==1) odd++;
+        if (a[i] %2 != 0){
+            odd++;
+        }else if(a[i]%4==0){
+            four++;
+        }
     }
-    if(odd<=four || (1 <= four && a.size()<=3)) cout << "Yes" << endl;
-    else cout << "No" << endl;
+    if((odd <= four) || (four+1==odd && four+odd==n)){
+        cout << "Yes" << endl;
+    }else{
+        cout << "No" << endl;
+    }
     return 0;
 }

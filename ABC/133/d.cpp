@@ -1,30 +1,34 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define ll long long
 
-int main(void){
-    ll n;
-    cin >> n;
-    vector<ll>A(n);
+#define int long long
+
+signed main(void){
+    int n; cin >> n;
+    vector<int>a(n);
+    for(int i=0;i<n;i++) cin >> a[i];
+    int sum_a = accumulate(a.begin(),a.end(),(int)0);
+    vector<int>r(n,0),l(n,0);
+    for(int i=2;i<n;i++){
+        r[i] += r[i-2] + a[i-2];
+    }
+
+    l[n-2] = a[n-1];
+    for(int i=n-3;0<=i;i--){
+        l[i] += l[i+2] + a[i+1];
+    }
+
+    // for(int i=0;i<n;i++){
+    //     cout << r[i] << ' ';
+    // }cout << endl;
+    // for(int i=0;i<n;i++){
+    //     cout << l[i] << ' ';
+    // }cout << endl;
+
     for(int i=0;i<n;i++){
-        cin >> A[i];
-    }
-    ll All = accumulate(A.begin(),A.end(),0);
-    vector<ll>X(n);
-    X[0] = All;
-    for(int i=1;i<n;i+=2){
-        X[0] -= 2*A[i];
-    }
-    for(int i=1;i<n;i++){
-        X[i] = 2*A[i-1] - X[i-1];
-    }
-
-    for(int i=0;i<n;i++){
-        cout << X[i];
-        if(i!=n-1){
-            cout << ' ';
-        }
-    }
-    cout << endl;
-
+        cout << sum_a - 2*(r[i]+l[i]);
+        if(i!=n-1)cout << ' ';
+    }cout << endl;
+    return 0;
 }
+
