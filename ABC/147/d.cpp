@@ -2,82 +2,41 @@
 using namespace std;
 #define int long long
 
-class Mod{
-public:
-    vector<int>fac;
-    vector<int>finv;
-    vector<int>inv;
-    int MOD;
+int modpow(int a, int n) {
+    int mod = 1e9+7;
+    int res = 1;
+    while (n > 0) {
+        if (n & 1) res = res * a % mod;
+        a = a * a % mod;
+        n >>= 1;
+    }
+    return res;
+}
 
-    Mod(int MAX=1e6,int mod=1e9+7){
-        MOD = mod;
-        fac.resize(MAX+2);
-        finv.resize(MAX+2);
-        inv.resize(MAX+2);
-        fac[0] = fac[1] = 1;
-        finv[0] = finv[1] = 1;
-        inv[1] = 1;
-        for (int i = 2; i < MAX; i++){
-            fac[i] = fac[i - 1] * i % MOD;
-            inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
-            finv[i] = finv[i - 1] * inv[i] % MOD;
-        }
-    }
-
-    int com(int n, int k){
-        if (n < k) return 0;
-        if (n < 0 || k < 0) return 0;
-        return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
-    }
-
-    int add(int a, int b){
-        return (a + b)%MOD;
-    }
-    
-    int mul(int a,int b){
-        return (a*b)%MOD;
-    }
-    
-    int modinv(int a) {
-        int b = MOD, u = 1, v = 0;
-        while (b) {
-            int t = a / b;
-            a -= t * b; swap(a, b);
-            u -= t * v; swap(u, v);
-        }
-        u %= MOD;
-        if (u < 0) u += MOD;
-        return u;
-    }
-    
-    int div(int a, int b){
-        return (a*modinv(b)%MOD);
-    }
-};
 
 signed main(void){
-    Mod M;
+    int MOD = 1000000007;
     int n; cin >> n;
-    vector<int>a(n);
-    for(int i=0;i<n;i++) cin >> a[i];
-    sort(a.rbegin(),a.rend());
-    int max_a = 63;
-    vector<int>one(max_a,0),zero(max_a,0);
-
-    for(int i=0;i<max_a;i++){
-        for(int j=0;j<n;j++){
-            if (((a[j] >> i)&1)==1){
-                one[i]++;
+    vector<int>one(100,0),zero(100,0);
+    for(int i=0;i<n;i++){
+        int a; cin >> a;
+        int j=0;
+        // cout << "ok" << endl;
+        while(0<(a>>j)){
+            if(((a>>j)&1)==1){
+                one[j]++;
             }else{
-                zero[i]++;
+                zero[j]++;
             }
+            j++;
         }
     }
-
     int ans = 0;
-    for(int i=0;i<max_a;i++){
-        ans = M.add(ans,M.mul(M.mul(zero[i],one[i]),pow(2,i)));
-        // cout << ans << endl;
+    for(int i=0;i<100;i++){
+        if (one[i]!=0) zero[i] = n - one[i];
+        // cout << one[i] << ' ' << zero[i] <<' ' << ans <<  endl;
+        ans = (ans + (((one[i]*zero[i])%MOD)*modpow(2,i))%MOD)%MOD;
+        // if(ans < 0) cout << ((one[i]*zero[i])%MOD) <<' ' <<  (int)pow(2,i) << ' ' << (((one[i]*zero[i])%MOD)*(int)pow(2,i))%MOD<< endl;
     }
     cout << ans << endl;
     return 0;

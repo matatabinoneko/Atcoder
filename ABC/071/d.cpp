@@ -33,8 +33,8 @@ signed main(void){
                 ans = (ans*3);
             }
             i+=2;
-            ans = ans%MOD;
         }
+        ans = ans%MOD;
     }
     cout << ans << endl;
     return 0;
