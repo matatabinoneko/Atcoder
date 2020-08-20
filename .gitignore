@@ -1,3 +1,5 @@
 .DS_Store
 *.sh
 a.out
+
+__pycache__ 
